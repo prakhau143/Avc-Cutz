@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avc Cutz | Barber Shop</title>
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(90deg, #6366f1 0%, #60a5fa 100%);
+      --accent-gradient: linear-gradient(90deg, #f59e42 0%, #fcbf49 100%);
+      --danger-gradient: linear-gradient(90deg, #ef4444 0%, #f87171 100%);
+      --success-gradient: linear-gradient(90deg, #34d399 0%, #60f7b2 100%);
+      --animated-bg: linear-gradient(270deg, #6366f1, #60a5fa, #fcbf49, #f59e42, #6366f1);
+      --header-bg: linear-gradient(120deg, #6366f1 40%, #60a5fa 100%);
+      --section-bg: #f8fafc;
+      --card-bg: #fff;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 14px;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--section-bg);
+      color: #222;
+    }
+    header, section, footer {
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    header::before, section::before, footer::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--animated-bg);
+      background-size: 400% 400%;
+      animation: gradientMove 18s ease-in-out infinite;
+      opacity: 0.17;
+      pointer-events: none;
+    }
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    header {
+      background: url('https://st5.depositphotos.com/16122460/71225/i/450/depositphotos_712256054-stock-photo-artificial-moustache-barber-tools-wooden.jpg') no-repeat center center/cover;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-shadow: 2px 2px 8px #222;
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+    }
+    .title-3d {
+      font-size: 3.5rem;
+      font-weight: bold;
+      animation: float 6s ease-in-out infinite;
+      letter-spacing: 2px;
+      margin-bottom: 0.5em;
+      text-shadow: 3px 3px 8px #222;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotateY(0deg);}
+      50% { transform: translateY(-15px) rotateY(10deg);}
+    }
+    .subtitle {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1.5em;
+      letter-spacing: 1px;
+      color: #e0e7ff;
+      text-shadow: 1px 1px 4px #222;
+      animation: float 10s ease-in-out infinite;
+    }
+    nav {
+      background: #222;
+      padding: 12px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 22px;
+      font-size: 1.08rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+    }
+    nav a:hover, nav a.active {
+      color: #fcbf49;
+      border-bottom: 2px solid #fcbf49;
+    }
+    section {
+      padding: 40px 16px;
+      max-width: 1100px;
+      margin: 32px auto;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    h2 {
+      text-align: center;
+      color: #374151;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1em 0;
+      text-align: center;
+    }
+    ul li {
+      display: inline-block;
+      margin: 0 18px 10px 0;
+      font-size: 1.08rem;
+      color: #0a0ae3;
+      background: #f1f5f9;
+      padding: 7px 18px;
+      border-radius: 8px;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.07);
+    }
+    /* Carousel container */
+    .carousel-container {
+      position: relative;
+      margin: 0 auto 30px auto;
+      max-width: 900px;
+      overflow: hidden;
+    }
+    .carousel-track {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 12px 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      background: var(--primary-gradient);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.13);
+      transition: background 0.2s;
+      opacity: 0.85;
+    }
+    .carousel-btn:hover { background: var(--accent-gradient); color: #222; }
+    .carousel-btn.left { left: 2px; }
+    .carousel-btn.right { right: 2px; }
+    .carousel-track img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(60,60,60,0.10);
+      transition: transform 0.3s, box-shadow 0.3s;
+      flex: 0 0 auto;
+      background: #f3f4f6;
+      border: 2px solid #fff;
+    }
+    .carousel-track img:hover {
+      transform: scale(1.06) rotate(-2deg);
+      box-shadow: 0 4px 18px rgba(60,60,60,0.18);
+    }
+    @media (max-width: 600px) {
+      .carousel-track img { width: 110px; height: 110px; }
+      .carousel-container { max-width: 98vw; }
+    }
+    .reviews .review {
+      background: #f3f4f6;
+      margin: 10px 0;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.06);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #222;
+      position: relative;
+    }
+    .reviews .review:before {
+      content: "★";
+      color: #fcbf49;
+      font-size: 1.3em;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .review-btn {
+      display: inline-block;
+      background: var(--primary-gradient);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.08rem;
+      padding: 12px 32px;
+      margin: 18px auto 0 auto;
+      cursor: pointer;
+      box-shadow: 0 2px 12px rgba(99,102,241,0.09);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .review-btn:hover {
+      background: var(--accent-gradient);
+      color: #222;
+      box-shadow: 0 4px 18px rgba(252,191,73,0.18);
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(30,41,59,0.34);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: #fff;
+      padding: 32px 22px;
+      border-radius: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.17);
+      max-width: 350px;
+      width: 95vw;
+      text-align: center;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+      color: #6366f1;
+      font-size: 1.3rem;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 95%;
+      padding: 10px;
+      margin: 8px 0 18px 0;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      font-size: 1rem;
+      background: #f3f4f6;
+      resize: vertical;
+    }
+    .modal-content .star-rating {
+      font-size: 1.4em;
+      margin: 8px 0 18px 0;
+      color: #fcbf49;
+      cursor: pointer;
+    }
+    .modal-content .close-modal {
+      background: var(--danger-gradient);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 7px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 8px;
+      margin-right: 8px;
+      transition: background 0.2s;
+    }
+    .modal-content .close-modal:hover {
+      background: #ef4444;
+    }
+    .modal-content .submit-review {
+      background: var(--success-gradient);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 7px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .modal-content .submit-review:hover {
+      background: #34d399;
+    }
+    .footer-content {
+      max-width: 1100px;
+      margin: auto;
+    }
+    .footer-map {
+      margin: 20px auto;
+      max-width: 350px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+    .appointment-btn {
+      display: inline-block;
+      margin: 10px auto 20px auto;
+      padding: 12px 32px;
+      background: var(--accent-gradient);
+      color: #111;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: background 0.2s;
+      box-shadow: 0 2px 12px rgba(252,191,73,0.09);
+    }
+    .appointment-btn:hover {
+      background: var(--primary-gradient);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(99,102,241,0.18);
+    }
+    footer {
+      text-align: center;
+      background: #222;
+      color: white;
+      padding: 32px 0 10px 0;
+      position: relative;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+      margin-top: 40px;
+    }
+    /* Chatbot styles */
+    .chatbot-fab {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 2001;
+      background: var(--primary-gradient);
+      color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 18px rgba(99,102,241,0.25);
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s;
+    }
+    .chatbot-fab:hover {
+      background: var(--accent-gradient);
+      color: #222;
+    }
+    .chatbot-window {
+      position: fixed;
+      bottom: 110px;
+      right: 32px;
+      width: 320px;
+      max-width: 95vw;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.17);
+      z-index: 2002;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeIn 0.2s;
+    }
+    .chatbot-window.active { display: flex; }
+    .chatbot-header {
+      background: var(--primary-gradient);
+      color: #fff;
+      padding: 12px 16px;
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chatbot-close {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    .chatbot-messages {
+      padding: 14px;
+      background: #f3f4f6;
+      min-height: 120px;
+      max-height: 260px;
+      overflow-y: auto;
+      font-size: 1rem;
+      direction: rtl;
+    }
+    .chatbot-message {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .chatbot-message.user {
+      justify-content: flex-end;
+      direction: rtl;
+    }
+    .chatbot-message .bubble {
+      padding: 8px 14px;
+      border-radius: 16px;
+      max-width: 80%;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.07);
+      font-size: 1rem;
+      line-height: 1.4;
+      direction: ltr;
+    }
+    .chatbot-message.user .bubble {
+      background: var(--primary-gradient);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .chatbot-message.bot .bubble {
+      background: #fff;
+      color: #222;
+      border-bottom-left-radius: 4px;
+      border: 1px solid #e5e7eb;
+    }
+    .chatbot-input-area {
+      display: flex;
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+    }
+    .chatbot-input-area input {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 0;
+      outline: none;
+      background: #fff;
+    }
+    .chatbot-input-area button {
+      background: var(--primary-gradient);
+      color: #fff;
+      border: none;
+      padding: 0 20px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .chatbot-input-area button:hover {
+      background: var(--accent-gradient);
+      color: #222;
+    }
+    @media (max-width: 600px) {
+      .chatbot-window { right: 2vw; width: 96vw; }
+      .chatbot-fab { right: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title-3d">Welcome to Avc Cutz</div>
+    <div class="subtitle">Professional, Clean & Fresh Cuts in Denton, TX</div>
+  </header>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#styles">Styles</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <section id="services" class="services">
+    <h2>Our Services</h2>
+    <p style="text-align: center;">"Always professional, clean work environment and great with cuts."</p>
+    <ul>
+      <li>✂️ Haircuts & Line-ups</li>
+      <li>🧔 Beard Trimming</li>
+      <li>🎨 Custom Styles & Designs</li>
+      <li>🧽 Clean & Safe Environment</li>
+    </ul>
+    <p style="text-align:center;">Business Age: Experienced • Status: Assigned • Rating: ⭐⭐⭐⭐⭐</p>
+  </section>
+  <section id="styles" class="styles">
+    <h2>Select Your Style</h2>
+    <div class="carousel-container">
+      <button class="carousel-btn left" id="carouselLeft" aria-label="Scroll Left">&#8592;</button>
+      <div class="carousel-track" id="carouselTrack">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSa_LgwQz7i1I7uOtBsncUtMKcD4MpeiCGARA&s" alt="Fade 1">
+        <img src="https://i.pinimg.com/736x/21/7d/77/217d770e14d4aeeb067c8703b2592289.jpg" alt="Fade 2">
+        <img src="https://images.squarespace-cdn.com/content/v1/5702abebd210b8e9fd0df564/6b8edcd5-e0d1-4b2a-8140-230e73725f6b/Swanky-Malone-Buzz-Cut-high-and-tight.jpg" alt="Buzz">
+        <img src="https://static1.squarespace.com/static/5616c8cde4b0bbc1cabb7c79/63a31a84df462f2ec7b5d70f/66a79a82aa99cd479a831ffa/1738706963032/The+Complete+Beard+Grooming+Guide_+How+To+Trim+A+Beard+%26+Maintain+It+Like+A+Pro.jpeg?format=1500w" alt="Beard trim">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJTiSkRz2O_koI0EKywv8G1Zdm2yRg3tV6pg&s" alt="Line up">
+        <img src="https://i.pinimg.com/564x/5a/7e/68/5a7e685f5f802532943cd9aa7e721ec2.jpg" alt="Classic">
+        <img src="https://i.pinimg.com/736x/d1/73/dc/d173dc7c873188c4cd56d01d760f8170.jpg" alt="Modern">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKfNa9GC6S5WnlCj_S3LYlmdhzmX1KE4upbw&s" alt="Dreadlocks">
+        <img src="https://i.pinimg.com/564x/bf/4f/b1/bf4fb13ed65f8112d6e82b2cfae50c48.jpg" alt="Mohawk">
+      </div>
+      <button class="carousel-btn right" id="carouselRight" aria-label="Scroll Right">&#8594;</button>
+    </div>
+  </section>
+  <section id="reviews" class="reviews">
+    <h2>What Our Clients Say</h2>
+    <div class="review">“Best cut I’ve had in Denton! Clean and professional. Will be back.” – Jake R.</div>
+    <div class="review">“Love the vibe at Avc Cutz. Friendly staff and crisp fades!” – Maya C.</div>
+    <div class="review">“Always on time, always fresh. Highly recommend!” – Terrance B.</div>
+    <div class="review">“Sharp cuts, great music, and great convo. My go-to barber.” – Luis M.</div>
+    <button class="review-btn" id="openReviewModal">Give a Review</button>
+  </section>
+  <section id="contact" class="contact">
+    <h2>Contact & Location</h2>
+    <p><strong>Address:</strong> 1100 Dallas Dr Suite 120, Denton, TX 76205, United States</p>
+    <p><strong>Phone:</strong> <a href="tel:+18175281414">+1 (817) 528-1414</a></p>
+    <p><strong>Location:</strong> Denton, TX, United States</p>
+    <p><strong>Website:</strong> <a href="#">Coming Soon</a></p>
+  </section>
+  <footer>
+    <div class="footer-content">
+      <a class="appointment-btn" href="#" target="_blank">Book Appointment</a>
+      <div class="footer-map">
+        <iframe
+          src="https://www.google.com/maps?q=1100+Dallas+Dr+Suite+120,+Denton,+TX+76205,+United+States&output=embed"
+          width="350"
+          height="200"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div style="margin-top: 15px;">
+        &copy; 2025 Avc Cutz | Designed with ✂️ in Denton, TX
+      </div>
+    </div>
+  </footer>
+  <div class="modal" id="reviewModal">
+    <div class="modal-content">
+      <h3>Share Your Experience</h3>
+      <div class="star-rating" id="starRating">
+        <span data-value="1">&#9733;</span>
+        <span data-value="2">&#9733;</span>
+        <span data-value="3">&#9733;</span>
+        <span data-value="4">&#9733;</span>
+        <span data-value="5">&#9733;</span>
+      </div>
+      <input type="text" id="reviewName" placeholder="Your Name (optional)">
+      <textarea id="reviewText" rows="4" placeholder="Write your review..." required></textarea>
+      <br>
+      <button class="close-modal" id="closeReviewModal">Cancel</button>
+      <button class="submit-review" id="submitReview">Submit</button>
+    </div>
+  </div>
+
+  <!-- Chatbot Floating Button -->
+  <button class="chatbot-fab" id="openChatbot" title="Chat with us!">💬</button>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      Chat with Avc Cutz
+      <button class="chatbot-close" id="closeChatbot" title="Close">&times;</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="chatbot-message bot"><div class="bubble">Hi! 👋 How can we help you today?</div></div>
+    </div>
+    <form class="chatbot-input-area" id="chatbotForm" autocomplete="off">
+      <input type="text" id="chatbotInput" placeholder="Type your message..." required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <script>
+    // Carousel scroll animation
+    const carouselTrack = document.getElementById('carouselTrack');
+    document.getElementById('carouselLeft').onclick = function() {
+      carouselTrack.scrollBy({left: -200, behavior: 'smooth'});
+    };
+    document.getElementById('carouselRight').onclick = function() {
+      carouselTrack.scrollBy({left: 200, behavior: 'smooth'});
+    };
+
+    // Review Modal logic
+    const reviewModal = document.getElementById('reviewModal');
+    const openReviewModal = document.getElementById('openReviewModal');
+    const closeReviewModal = document.getElementById('closeReviewModal');
+    const submitReview = document.getElementById('submitReview');
+    const reviewText = document.getElementById('reviewText');
+    const reviewName = document.getElementById('reviewName');
+    const starRating = document.getElementById('starRating');
+    let selectedStars = 5;
+    if(openReviewModal) openReviewModal.addEventListener('click', () => {
+      reviewModal.classList.add('active');
+      selectedStars = 5;
+      updateStars();
+      reviewText.value = '';
+      reviewName.value = '';
+    });
+    if(closeReviewModal) closeReviewModal.addEventListener('click', () => {
+      reviewModal.classList.remove('active');
+    });
+    if(starRating) starRating.querySelectorAll('span').forEach(star => {
+      star.addEventListener('click', function() {
+        selectedStars = parseInt(this.getAttribute('data-value'));
+        updateStars();
+      });
+    });
+    function updateStars() {
+      starRating.querySelectorAll('span').forEach(star => {
+        star.style.color = (parseInt(star.getAttribute('data-value')) <= selectedStars) ? '#fcbf49' : '#ddd';
+      });
+    }
+    if(submitReview) submitReview.addEventListener('click', () => {
+      if (reviewText.value.trim().length < 3) {
+        alert('Please write a review.');
+        return;
+      }
+      const reviewsSection = document.querySelector('.reviews');
+      const div = document.createElement('div');
+      div.className = 'review';
+      div.innerHTML = `“${reviewText.value}” – ${reviewName.value ? reviewName.value : "Anonymous"} <span style="color:#fcbf49;font-size:1.1em;">${'★'.repeat(selectedStars)}</span>`;
+      reviewsSection.insertBefore(div, openReviewModal);
+      reviewModal.classList.remove('active');
+    });
+
+    // Chatbot logic
+    const openChatbot = document.getElementById('openChatbot');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    openChatbot.onclick = () => chatbotWindow.classList.add('active');
+    closeChatbot.onclick = () => chatbotWindow.classList.remove('active');
+    const chatbotForm = document.getElementById('chatbotForm');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    function addMessage(text, sender) {
+      const div = document.createElement('div');
+      div.className = 'chatbot-message ' + sender;
+      div.innerHTML = `<div class="bubble">${text}</div>`;
+      chatbotMessages.appendChild(div);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+    function botReply(userText) {
+      let reply = "Thank you for your message! We'll get back to you soon.";
+      const text = userText.toLowerCase();
+      if (text.includes('hi') || text.includes('hello')) {
+        reply = "Hello! 👋 How can we assist you? (You can ask about appointments, styles, or anything else.)";
+      } else if (text.includes('appointment')) {
+        reply = "To book an appointment, please click the 'Book Appointment' button at the bottom of the page.";
+      } else if (text.includes('location') || text.includes('address')) {
+        reply = "We're at 1100 Dallas Dr Suite 120, Denton, TX 76205, United States.";
+      } else if (text.includes('price') || text.includes('cost')) {
+        reply = "For pricing info, please call us or ask about the specific service you're interested in!";
+      } else if (text.includes('thank')) {
+        reply = "You're welcome! 😊";
+      }
+      setTimeout(() => addMessage(reply, 'bot'), 600);
+    }
+    chatbotForm.onsubmit = function(e) {
+      e.preventDefault();
+      const text = chatbotInput.value.trim();
+      if (!text) return;
+      addMessage(text, 'user');
+      chatbotInput.value = '';
+      botReply(text);
+    };
+  </script>
+</body>
+</html>
